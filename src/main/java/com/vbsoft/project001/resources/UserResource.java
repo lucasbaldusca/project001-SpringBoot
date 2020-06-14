@@ -1,4 +1,4 @@
-package com.vbsoft.project001.resourcer;
+package com.vbsoft.project001.resources;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
