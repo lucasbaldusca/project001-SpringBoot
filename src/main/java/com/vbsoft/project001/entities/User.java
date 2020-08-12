@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
@@ -20,6 +22,7 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 
+	@JsonIgnore
 	@OneToMany(mappedBy ="client")
 	private List<Order> orders = new ArrayList<>();
 
