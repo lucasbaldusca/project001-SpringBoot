@@ -6,6 +6,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vbsoft.project001.entities.pk.OrderItemPK;
 
 @Entity
@@ -14,7 +15,7 @@ public class OrderItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@EmbeddedId
-	OrderItemPK id;// O atributo identificador, correspondente a chave primaria
+	OrderItemPK id = new OrderItemPK();//Clase auxiliar chave, tem que instanciar/ O atributo identificador, correspondente a chave primaria
 
 	private Integer quantity;
 	private Double price;
@@ -30,7 +31,8 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
-	public Order getOrder() {
+	@JsonIgnore
+	public Order getOrder() { // o get order que tava chamando o pedido associado ao Item de pedido
 		return id.getOrder();
 	}
 
