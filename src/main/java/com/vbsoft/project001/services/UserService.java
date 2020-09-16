@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.vbsoft.project001.entities.User;
 import com.vbsoft.project001.repositories.UserRepository;
+import com.vbsoft.project001.services.exceptions.DatabaseException;
 import com.vbsoft.project001.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -30,8 +32,16 @@ public class UserService {
 	}
 
 	public void delete(Long id) {
+		try {
 		repository.deleteById(id);
+	} catch(EmptyResultDataAccessException e) {
+		throw new ResourceNotFoundException(id);
+	} catch(RuntimeException e) {
+		throw new DatabaseException(e.getMessage());
 	}
+		
+	}
+	
 	
 	public User update(Long id, User obj) {
 		User entity = repository.getOne(id); //prepara o entity para recebver os dados
